@@ -5,6 +5,14 @@ let dist: number[] = [];
 let file = await Deno.readFile("input.txt");
 const decoder = new TextDecoder("utf-8");
 const text = decoder.decode(file);
+// const text = `
+//   3   4
+//   4   3
+//   2   5
+//   1   3
+//   3   9
+//   3   3
+// `;
 text.split("\n").forEach((line) => {
   let parts = line.split("   ");
   if (isNaN(parseInt(parts[0]))) {
@@ -14,19 +22,20 @@ text.split("\n").forEach((line) => {
   list2.push(parseInt(parts[1]));
 });
 
-list1.sort((n1, n2) => n1 - n2);
+// list1.sort((n1, n2) => n1 - n2);
 list2.sort((n1, n2) => n1 - n2);
 
 for (let i = 0; i < list1.length; i++) {
   let num1 = list1[i];
-  let num2 = list2[i];
-  dist.push(Math.abs(num1 - num2));
+  let num2s = list2.filter((v) => v === num1);
+  console.log(num1, num2s);
+  dist.push(num1 * num2s.length);
 }
 
 let num = 0;
 dist.forEach((n) => {
-  console.log(n);
-  num = num + n;
+  // console.log(n);
+  num += n;
 });
 
 console.log(list1);
